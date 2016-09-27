@@ -47,13 +47,6 @@ export function initMap() {                             //create map object
 
 }
 
-/*function bikeStationMark(map) {                                   //add Bike markers
-    for (var i = 0; Bikeshare[i].Station != null; i++) {
-        mapMarker(BikeShare[i].Station.StationInformation.name,{ )
-    }
-
-}*/
-
 function mapMarker(markerLabel, markerLocation, map, stationName, station: BS.Station) {
 
     var avail = station.stationStatus.num_bikes_available;
@@ -89,27 +82,15 @@ function mapMarker(markerLabel, markerLocation, map, stationName, station: BS.St
         var m: google.maps.Map = map;
         var pos: google.maps.LatLng = markerLocation;
 
-        var dataContainer: HTMLElement = document.getElementById("data");
-        dataContainer.innerHTML = "";
+        var bikeShareElem: HTMLElement = document.getElementById("title");
+        bikeShareElem.childNodes[0].nodeValue = BS.bikeShares[0].name;
 
-        var header: HTMLElement = document.createElement("h3");
-        header.setAttribute("class", "col-md-offset-1");
-        header.innerText = stationName;
-        dataContainer.appendChild(header);
+        var stationElem: HTMLElement = document.getElementById("station")
+        stationElem.childNodes[0].nodeValue = stationName;
 
-        var subHeading: HTMLElement = document.createElement("div");
-        subHeading.setAttribute("class", "col-md-offset-1");
-        dataContainer.appendChild(subHeading);
+        var addressElem: HTMLElement = document.getElementById("address1")
+        stationElem.getElementsByTagName("small")[0].innerText = "  ·  " + station.stationInformation.address;
 
-        var subHeadingText: HTMLElement = document.createElement("h4");
-        subHeadingText.innerText = station.stationInformation.address;
-        subHeading.style.marginBottom = '35px';
-        subHeading.appendChild(subHeadingText);
-
-        var columnLeft: HTMLElement = document.createElement("span");
-        columnLeft.setAttribute("class", "col-md-6 col-md-offset-1 h3 ");
-        columnLeft.innerText = "Bikes: ";
-        dataContainer.appendChild(columnLeft);
 
         var col;
         if (avail < 3) {
@@ -120,16 +101,9 @@ function mapMarker(markerLabel, markerLocation, map, stationName, station: BS.St
             col = "green";
         }
 
-        var columnLeftText: HTMLElement = document.createElement("span");
-        columnLeftText.setAttribute("class", "badge h2");
-        columnLeftText.style.backgroundColor = col;
-        columnLeftText.innerText = station.stationStatus.num_bikes_available;
-        columnLeft.appendChild(columnLeftText);
-
-        var columnRight: HTMLElement = document.createElement("span");
-        columnRight.setAttribute("class", "col-md-5 h3");
-        columnRight.innerText = "Docks: ";
-        dataContainer.appendChild(columnRight);
+        var columnLeft: HTMLElement = document.getElementById("left-column-count");
+        columnLeft.innerText = station.stationStatus.num_bikes_available;
+        columnLeft.style.color = col;
 
         var col;
         if (docks < 3) {
@@ -140,37 +114,20 @@ function mapMarker(markerLabel, markerLocation, map, stationName, station: BS.St
             col = "green";
         }
 
-        var columnRightText: HTMLElement = document.createElement("span");
-        columnRightText.setAttribute("class", "badge h2");
-        columnRightText.style.backgroundColor = col;
+        var columnRightText: HTMLElement = document.getElementById("right-column-count");
+        columnRightText.style.color = col;
         columnRightText.innerText = station.stationStatus.num_docks_available;
-        columnRight.appendChild(columnRightText);
 
-        var renting: HTMLElement = document.createElement("span");
-        renting.setAttribute("class", "col-md-6 col-md-offset-1 h3 ");
+
+        var renting: HTMLElement = document.getElementById("rental-availability");
         renting.innerText = station.stationStatus.is_renting == 1 && avail >= 1 ? "Rentals available" : "Rentals unavailable";
-        renting.style.zIndex = '999';
-        renting.style.fontStyle = 'italic';
-        dataContainer.appendChild(renting);
 
-        var docking: HTMLElement = document.createElement("span");
-        docking.setAttribute("class", "col-md-6 col-md-offset-1 h3");
+        var docking: HTMLElement = document.getElementById("dock-availability");
         docking.innerText = station.stationStatus.is_returning == 1 && docks >= 1 ? "Docks available" : "Docks unavailable";
-        docking.style.zIndex = '999';
-        docking.style.fontStyle = 'italic';
-        docking.style.marginBottom = '50px';
-        dataContainer.appendChild(docking);
 
-        var chartTitle: HTMLElement = document.createElement("div");
-        chartTitle.setAttribute("class", "col-md-6 col-sm-offset-1 h3 ");
-        chartTitle.innerText = "Peak Times";
-   
-        chartTitle.style.marginBottom = '-50px';
-        chartTitle.style.paddingBottom = '0';
-        chartTitle.style.zIndex = '999';
-        dataContainer.appendChild(chartTitle);
 
-        drawChart(dataContainer, station);
+        var histogram: HTMLElement = document.getElementById("histogram");
+        drawChart(histogram, station);
     })
 }
 
@@ -237,7 +194,13 @@ function drawChart(parent: HTMLElement, station: BS.Station) {
             },
             gridlines: { color: 'transparent' }
         },
-        tooltip: {trigger: 'none'}
+        tooltip: { trigger: 'none' },
+        animation: {
+            startup: true,
+            duration: 2,
+            easing: 'in'
+
+        }
     };
 
     var chartDiv: HTMLElement = document.createElement("chart_div");
@@ -245,6 +208,7 @@ function drawChart(parent: HTMLElement, station: BS.Station) {
     chartDiv.style.marginTop = '-40px';
     chartDiv.style.paddingTop = '0px';
     var chart = new google.visualization.ColumnChart(chartDiv);
+    parent.innerHTML = '';
     parent.appendChild(chartDiv);
 
     chart.draw(data, options);

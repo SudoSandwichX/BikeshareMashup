@@ -175,11 +175,13 @@ define(["require", "exports"], function (require, exports) {
             PrintStations(bikeShare);
         });
     }
+    exports.PrintBikeShares = PrintBikeShares;
     function PrintPricingPlans(bikeShare) {
         bikeShare.pricingPlans.forEach(function (plan) {
             console.log(plan.name + "\nPrice: " + plan.price);
         });
     }
+    exports.PrintPricingPlans = PrintPricingPlans;
     function PrintStations(bikeShare) {
         bikeShare.stations.forEach(function (station) {
             console.log("Station: " + station.stationInformation.name + "\nAddress: " + station.stationInformation.address);
@@ -187,5 +189,6 @@ define(["require", "exports"], function (require, exports) {
             console.log("Bikes Available: " + status.num_bikes_available + "\nDocks Available: " + status.num_docks_available + "\nRenting: " + (status.is_renting == 1 ? "Yes" : "No"));
         });
     }
+    exports.PrintStations = PrintStations;
 });
 //# sourceMappingURL=BikeShareBuild.js.map

@@ -138,7 +138,7 @@ function GetDataFeed(feed: Feed) {
 
 }
 
-function PrintBikeShares() {
+export function PrintBikeShares() {
     bikeShares.forEach(function (bikeShare) {
         console.log(bikeShare.name + "\nEmail: " + bikeShare.email + "\nPhone: " + bikeShare.phone_number);
         PrintPricingPlans(bikeShare);
@@ -146,13 +146,13 @@ function PrintBikeShares() {
     })
 }
 
-function PrintPricingPlans(bikeShare: BikeShare) {
+export function PrintPricingPlans(bikeShare: BikeShare) {
     bikeShare.pricingPlans.forEach(function (plan) {
         console.log(plan.name + "\nPrice: " + plan.price);
     })
 }
 
-function PrintStations(bikeShare: BikeShare) {
+export function PrintStations(bikeShare: BikeShare) {
     bikeShare.stations.forEach(function (station) {
         console.log("Station: " + station.stationInformation.name + "\nAddress: " + station.stationInformation.address);
 

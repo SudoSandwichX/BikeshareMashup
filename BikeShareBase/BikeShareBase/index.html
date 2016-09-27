@@ -14,26 +14,41 @@
             src="Scripts/require.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="Histogram.js"></script>
-    
+
 </head>
 <body onload="">
-    <!--<div class="row">
-            <div id="data" class="col-md-3">
-                <div class="row">
-                    <div class="col-md-2 offset1">This is a Test</div>
-                    <div class="col-md-1 offset2">Test</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="data" class="col-lg-3">
+                <div id="title" class="text-center title">
+                    Test
+                    <div id="station" class="text-center title-small"> Station<span><small>  ·  Address</small></span></div>
+                    
                 </div>
-            </div>
-            <div id="map" class="col-md-9"> Google Map </div>
-        </div>
-    -->
-    <div class="row">
-        <div id="data" class="col-md-3">
-            <h2 class="col-md-12 col-md-offset-2">Fargo Bike Share</h2>
-        </div>
-        <div id="map" class="col-md-9">Fluid 6</div>
-    </div>
+                <!-- Left Column -->
+                <div id="left-column" class="col-md-6 col-sm-6 col-xs-6">
+                    <div id="left-column-count" class="col-md-12 col-sm-12 col-xs-12 count">
+                        10
+                    </div>
+                    <div class="text-center col-md-12 col-sm-12 col-xs-12 count-label">Bikes</div>
+                </div>
+                <!-- Right Column -->
+                <div id="right-column" class="col-md-6 col-sm-6 col-xs-6">
+                    <div id="right-column-count" class="col-md-12 col-sm-12 col-xs-12 count">
+                        10
+                    </div>
+                    <div class="text-center col-md-12 col-sm-12 col-xs-12 count-label">Docks</div>
+                </div>
+                <div id="rental-availability" class="col-md-6 col-sm-6 col-xs-6 text-center">Rentals Available</div>
+                <div id="dock-availability" class="col-md-6 col-sm-6 col-xs-6 text-center"> Docks Available</div>
+                <div id="histogram" class="col-md-12 col-sm-12 col-xs-12 content-text">Chart</div>
 
+                <!--<button id="btn">Print Shares</button>-->
+            </div>
+            <!-- End Data Section -->
+            <div id="map" class="col-lg-9 nopadding" style="background: cyan;">Google Map</div>
+        </div>
+    </div>
 
 </body>
 </html>

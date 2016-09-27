@@ -10,3 +10,9 @@ window.setTimeout(gMaps.initMap(), 2000);
 google.charts.load('current', { 'packages': ['corechart'] });
 
 pastData.forceImport;
+
+/*
+document.getElementById("btn").onclick = function () {
+    BS.PrintBikeShares();
+}
+*/

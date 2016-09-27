@@ -6,4 +6,9 @@ define(["require", "exports", './BikeShareBuild', './GoogleMaps', './PastData'],
     google.charts.load('current', { 'packages': ['corechart'] });
     pastData.forceImport;
 });
+/*
+document.getElementById("btn").onclick = function () {
+    BS.PrintBikeShares();
+}
+*/ 
 //# sourceMappingURL=BikeShareView.js.map
